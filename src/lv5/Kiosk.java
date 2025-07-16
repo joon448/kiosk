@@ -59,17 +59,10 @@ public class Kiosk {
         }
         System.out.println("0 . 종료");
     }
-    private boolean selectMenu(Scanner scanner){
-        int num;
 
+    private boolean selectMenu(Scanner scanner){
         printMenus();
-        try {
-            num = scanner.nextInt();
-        } catch (InputMismatchException e){
-            System.out.println("잘못된 입력입니다.\n");
-            scanner.nextLine();
-            return true;
-        }
+        int num = getUserInput(scanner);
 
         if (num == 0){
             System.out.println("프로그램을 종료합니다.\n");
@@ -89,13 +82,7 @@ public class Kiosk {
         int num;
         while(true){
             menu.printMenuItems();
-            try {
-                num = scanner.nextInt();
-            } catch (InputMismatchException e){
-                System.out.println("잘못된 입력입니다.\n");
-                scanner.nextLine();
-                continue;
-            }
+            num = getUserInput(scanner);
 
             if (num == 0){
                 System.out.println("초기 화면으로 돌아갑니다.\n");
@@ -110,6 +97,15 @@ public class Kiosk {
             System.out.printf("%-2d. %-15s | ₩ %-6d | %s%n", num, menuItem.getName(), menuItem.getPrice(), menuItem.getDetail());
             System.out.println("주문이 완료되었습니다.\n");
             return;
+        }
+    }
+
+    private int getUserInput(Scanner scanner){
+        try {
+            return scanner.nextInt();
+        } catch (InputMismatchException e){
+            scanner.nextLine();
+            return -1;
         }
     }
 }

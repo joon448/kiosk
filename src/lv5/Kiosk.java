@@ -6,9 +6,30 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Kiosk {
-    public List<Menu> menus = new ArrayList<>();
+    private List<Menu> menus = new ArrayList<>();
 
     public Kiosk(){
+        initializeMenus();
+    }
+
+    public List<Menu> getMenus(){
+        return menus;
+    }
+
+    public void setMenus(List<Menu> menus){
+        this.menus = menus;
+    }
+
+    public void start(){
+        Scanner scanner = new Scanner(System.in);
+        boolean flag = true;
+        while (flag){
+            flag = selectMenu(scanner);
+        }
+        scanner.close();
+    }
+
+    private void initializeMenus(){
         List<MenuItem> burgerItems = new ArrayList<>();
         burgerItems.add(new MenuItem("ShackBurger", 6900, "토마토, 양상추, 쉑소스가 토핑된 치즈버거"));
         burgerItems.add(new MenuItem("SmokeShack", 8900, "베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거"));
@@ -29,17 +50,45 @@ public class Kiosk {
         dessertItems.add(new MenuItem("Brownie", 4000, "진한 브라우니"));
         menus.add(new Menu("Desserts", dessertItems));
     }
-    public void start(){
-        Scanner scanner = new Scanner(System.in);
-        int num;
-        while (true){
-            System.out.println("[ SHAKESHACK MENU ]");
-            for(int i = 0; i < menus.size(); i++){
-                Menu menu = menus.get(i);
-                System.out.printf("%-2d. %s%n", i+1, menu.getCategory());
-            }
-            System.out.println("0 . 종료");
 
+    private void printMenus() {
+        System.out.println("[ SHAKESHACK MENU ]");
+        for(int i = 0; i < menus.size(); i++){
+            Menu menu = menus.get(i);
+            System.out.printf("%-2d. %s%n", i+1, menu.getCategory());
+        }
+        System.out.println("0 . 종료");
+    }
+    private boolean selectMenu(Scanner scanner){
+        int num;
+
+        printMenus();
+        try {
+            num = scanner.nextInt();
+        } catch (InputMismatchException e){
+            System.out.println("잘못된 입력입니다.\n");
+            scanner.nextLine();
+            return true;
+        }
+
+        if (num == 0){
+            System.out.println("프로그램을 종료합니다.\n");
+            return false;
+        }
+        if (num < 0 || num > menus.size()) {
+            System.out.println("잘못된 입력입니다.\n");
+            return true;
+        }
+
+        Menu menu = menus.get(num - 1);
+        selectMenuItem(menu, scanner);
+        return true;
+    }
+
+    private void selectMenuItem(Menu menu, Scanner scanner){
+        int num;
+        while(true){
+            menu.printMenuItems();
             try {
                 num = scanner.nextInt();
             } catch (InputMismatchException e){
@@ -49,46 +98,18 @@ public class Kiosk {
             }
 
             if (num == 0){
-                System.out.println("프로그램을 종료합니다.\n");
-                break;
+                System.out.println("초기 화면으로 돌아갑니다.\n");
+                return;
             }
-            if (num < 0 || num > menus.size()) {
+            if (num < 0 || num > menu.getMenuItems().size()) {
                 System.out.println("잘못된 입력입니다.\n");
                 continue;
             }
 
-            Menu menu = menus.get(num - 1);
-            List<MenuItem> menuItems = menu.getMenuItems();
-            while(true){
-                System.out.printf("[ %s MENU ]%n", menu.getCategory());
-                for (int i = 0; i < menuItems.size(); i++) {
-                    MenuItem menuItem = menuItems.get(i);
-                    System.out.printf("%-2d. %-12s | ₩ %-6d | %s%n", i+1 , menuItem.name, menuItem.price, menuItem.detail);
-                }
-                System.out.println("0 . 뒤로 가기");
-
-                try {
-                    num = scanner.nextInt();
-                } catch (InputMismatchException e){
-                    System.out.println("잘못된 입력입니다.\n");
-                    scanner.nextLine();
-                    continue;
-                }
-
-                if (num == 0){
-                    System.out.println("초기 화면으로 돌아갑니다.\n");
-                    break;
-                }
-                if (num < 0 || num > menuItems.size()) {
-                    System.out.println("잘못된 입력입니다.\n");
-                    continue;
-                }
-                MenuItem menuItem = menuItems.get(num - 1);
-                System.out.printf("%-2d. %-12s | ₩ %-6d | %s%n", num, menuItem.name, menuItem.price, menuItem.detail);
-                System.out.println("주문이 완료되었습니다.\n");
-                break;
-            }
+            MenuItem menuItem = menu.getMenuItems().get(num - 1);
+            System.out.printf("%-2d. %-15s | ₩ %-6d | %s%n", num, menuItem.getName(), menuItem.getPrice(), menuItem.getDetail());
+            System.out.println("주문이 완료되었습니다.\n");
+            return;
         }
-        scanner.close();
     }
 }

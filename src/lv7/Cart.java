@@ -2,6 +2,7 @@ package lv7;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class Cart {
     private List<CartItem> cartItems = new ArrayList<CartItem>();
@@ -47,10 +48,11 @@ public class Cart {
     public void printCart() {
         System.out.println("\n아래와 같이 주문하시겠습니까?\n");
         System.out.println("[ Orders ]");
-        for (int i = 0; i < cartItems.size(); i++) {
-            CartItem cartItem = cartItems.get(i);
-            System.out.printf("%-2d. %-15s | ₩ %-6d * %d%n", i+1 , cartItem.getMenuItem().getName(), cartItem.getMenuItem().getPrice(), cartItem.getQuantity());
-        }
+        IntStream.range(0, cartItems.size())
+                .forEach(i-> {
+                    CartItem cartItem = cartItems.get(i);
+                    System.out.printf("%-2d. %-15s | ₩ %-6d | %s%n", i+1 , cartItem.getMenuItem().getName(), cartItem.getMenuItem().getPrice(), cartItem.getTotalPrice());
+                });
         System.out.println("[ Total ]");
         System.out.printf("₩ %d%n", getTotalPrice());
     }

@@ -1,5 +1,6 @@
 package lv1;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -14,8 +15,13 @@ public class Main {
                     "3. Cheeseburger  | W 6.9 | 포테이토 번과 비프패티, 치즈가 토핑된 치즈버거\n" +
                     "4. Hamburger     | W 5.4 | 비프패티를 기반으로 야채가 들어간 기본버거\n" +
                     "0. 종료          | 종료\n");
-
-            num = scanner.nextInt();
+            try {
+                num = scanner.nextInt();
+            } catch (InputMismatchException e){
+                System.out.println("잘못된 입력입니다.\n");
+                scanner.nextLine();
+                continue;
+            }
             switch (num){
                 case 1:
                     System.out.println("1. ShackBurger   | W 6.9 | 토마토, 양상추, 쉑소스가 토핑된 치즈버거");

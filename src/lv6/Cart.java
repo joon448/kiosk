@@ -1,9 +1,10 @@
 package lv6;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
-    private List<CartItem> cartItems;
+    private List<CartItem> cartItems = new ArrayList<CartItem>();
 
     public List<CartItem> getCartItems() {
         return cartItems;

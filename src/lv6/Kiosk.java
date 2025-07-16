@@ -7,9 +7,11 @@ import java.util.Scanner;
 
 public class Kiosk {
     private List<Menu> menus = new ArrayList<>();
+    private Cart cart;
 
     public Kiosk(){
         initializeMenus();
+        cart = new Cart();
     }
 
     public List<Menu> getMenus(){
@@ -95,7 +97,28 @@ public class Kiosk {
 
             MenuItem menuItem = menu.getMenuItems().get(num - 1);
             System.out.printf("%-2d. %-15s | ₩ %-6d | %s%n", num, menuItem.getName(), menuItem.getPrice(), menuItem.getDetail());
-            System.out.println("주문이 완료되었습니다.\n");
+
+            selectCart(menuItem, scanner);
+            return;
+        }
+    }
+
+    private void selectCart(MenuItem menuItem, Scanner scanner){
+        System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
+        System.out.println("1. 확인         2. 취소");
+        int num;
+        while(true) {
+            num = getUserInput(scanner);
+            if (num == 2) {
+                return;
+            }
+            if (num < 0 || num > 2) {
+                System.out.println("잘못된 입력입니다.\n");
+                continue;
+            }
+
+            cart.addToCart(menuItem);
+            System.out.printf("%s 이 장바구니에 추가되었습니다.%n", menuItem.getName());
             return;
         }
     }

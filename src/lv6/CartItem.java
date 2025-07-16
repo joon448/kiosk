@@ -21,8 +21,8 @@ public class CartItem {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void addQuantity(int quantity) {
+        this.quantity += quantity;
     }
 
     public int getTotalPrice(){

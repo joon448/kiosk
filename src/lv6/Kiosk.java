@@ -59,7 +59,7 @@ public class Kiosk {
             Menu menu = menus.get(i);
             System.out.printf("%-2d. %s%n", i+1, menu.getCategory());
         }
-        System.out.println("0 . 종료\n");
+        System.out.println("0 . 종료");
 
         if (!cart.getCartItems().isEmpty()) {
             System.out.println("[ ORDER MENU ]");
@@ -91,11 +91,11 @@ public class Kiosk {
                     System.out.println("\n1. 주문         2. 메뉴판");
                     int choice = getUserInput(scanner);
                     if (choice == 2){
-                        System.out.println("초기 화면으로 돌아갑니다.\n");
+                        System.out.println("메뉴 화면으로 돌아갑니다.\n");
                         return true;
                     }
                     if (choice == 1){
-                        System.out.printf("주문이 완료되었습니다. 금액은 %d원 입니다.\n\n",cart.getTotalPrice());
+                        System.out.printf("%n주문이 완료되었습니다. 금액은 %d원 입니다.%n%n",cart.getTotalPrice());
                         cart.clearCart();
                         break;
                     }
@@ -133,14 +133,14 @@ public class Kiosk {
             }
 
             MenuItem menuItem = menu.getMenuItems().get(num - 1);
-            System.out.printf("%-2d. %-15s | ₩ %-6d | %s%n", num, menuItem.getName(), menuItem.getPrice(), menuItem.getDetail());
+            System.out.printf("[선택] %-2d. %-15s | ₩ %-6d | %s%n%n", num, menuItem.getName(), menuItem.getPrice(), menuItem.getDetail());
 
-            selectCart(menuItem, scanner);
+            askToAddToCart(menuItem, scanner);
             return;
         }
     }
 
-    private void selectCart(MenuItem menuItem, Scanner scanner){
+    private void askToAddToCart(MenuItem menuItem, Scanner scanner){
         System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
         System.out.println("1. 확인         2. 취소");
         int num;
@@ -154,8 +154,14 @@ public class Kiosk {
                 continue;
             }
 
-            cart.addToCart(menuItem);
-            System.out.printf("%s 이 장바구니에 추가되었습니다.%n", menuItem.getName());
+            System.out.println("수량을 입력하세요.");
+            int quantity = getUserInput(scanner);
+            if (quantity < 0) {
+                System.out.println("잘못된 입력입니다.");
+                continue;
+            }
+            cart.addToCart(menuItem, quantity);
+            System.out.printf("%s 이 장바구니에 추가되었습니다.%n%n", menuItem.getName());
             return;
         }
     }

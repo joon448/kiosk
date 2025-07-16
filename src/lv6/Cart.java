@@ -30,12 +30,23 @@ public class Cart {
         cartItems.clear();
     }
 
+    public int getTotalPrice(){
+        int totalPrice = 0;
+        for(CartItem cartItem : cartItems){
+            totalPrice += cartItem.getTotalPrice();
+        }
+        return totalPrice;
+    }
+
     public void printCart() {
-        System.out.println("[ CART ]");
+        System.out.println("아래와 같이 주문하시겠습니까?\n");
+        System.out.println("[ Orders ]");
         for (int i = 0; i < cartItems.size(); i++) {
             CartItem cartItem = cartItems.get(i);
-            System.out.printf("%-2d. %-15s | ₩ %-6d | %d%n", i+1 , cartItem.getMenuItem().getName(), cartItem.getMenuItem().getPrice(), cartItem.getTotalPrice());
+            System.out.printf("%-2d. %-15s | %-2d개 | ₩ %-6d%n", i+1 , cartItem.getMenuItem().getName(), cartItem.getQuantity(), cartItem.getMenuItem().getPrice());
         }
+        System.out.println("[ Total ]");
+        System.out.printf("₩ %d", getTotalPrice());
     }
 }
 

@@ -59,7 +59,13 @@ public class Kiosk {
             Menu menu = menus.get(i);
             System.out.printf("%-2d. %s%n", i+1, menu.getCategory());
         }
-        System.out.println("0 . 종료");
+        System.out.println("0 . 종료\n");
+
+        if (!cart.getCartItems().isEmpty()) {
+            System.out.println("[ ORDER MENU ]");
+            System.out.printf("%-2d. Orders       | 장바구니를 확인 후 주문합니다.%n", menus.size()+1);
+            System.out.printf("%-2d. Cancel       | 진행 중인 주문을 취소합니다.%n", menus.size()+2);
+        }
     }
 
     private boolean selectMenu(Scanner scanner){
@@ -70,11 +76,42 @@ public class Kiosk {
             System.out.println("프로그램을 종료합니다.\n");
             return false;
         }
-        if (num < 0 || num > menus.size()) {
+
+        int menuSize = menus.size();
+        if (num < 0 || num > menuSize + 2) {
             System.out.println("잘못된 입력입니다.\n");
             return true;
         }
 
+        if (!cart.getCartItems().isEmpty()) {
+            if (num == menuSize + 1) {
+                cart.printCart();
+
+                while(true){
+                    System.out.println("\n1. 주문         2. 메뉴판");
+                    int choice = getUserInput(scanner);
+                    if (choice == 2){
+                        System.out.println("초기 화면으로 돌아갑니다.\n");
+                        return true;
+                    }
+                    if (choice == 1){
+                        System.out.printf("주문이 완료되었습니다. 금액은 %d원 입니다.\n\n",cart.getTotalPrice());
+                        cart.clearCart();
+                        break;
+                    }
+                }
+                return true;
+            }
+            if (num == menuSize + 2) {
+                cart.clearCart();
+                System.out.println("주문이 취소되었습니다.");
+                return true;
+            }
+        }
+        if (num > menuSize){
+            System.out.println("잘못된 입력입니다.\n");
+            return true;
+        }
         Menu menu = menus.get(num - 1);
         selectMenuItem(menu, scanner);
         return true;
@@ -131,4 +168,5 @@ public class Kiosk {
             return -1;
         }
     }
+
 }

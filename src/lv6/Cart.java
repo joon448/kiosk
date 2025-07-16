@@ -3,22 +3,26 @@ package lv6;
 import java.util.List;
 
 public class Cart {
-    private List<MenuItem> cartItems;
+    private List<CartItem> cartItems;
 
-    public List<MenuItem> getCartItems() {
+    public List<CartItem> getCartItems() {
         return cartItems;
     }
 
-    public void setCartItems(List<MenuItem> cartItems) {
+    public void setCartItems(List<CartItem> cartItems) {
         this.cartItems = cartItems;
     }
 
     public void addToCart(MenuItem menuItem) {
-        cartItems.add(menuItem);
+        cartItems.add(new CartItem(menuItem, 1));
     }
 
     public void removeFromCart(MenuItem menuItem) {
-        cartItems.remove(menuItem);
+        for (CartItem cartItem : cartItems) {
+            if (menuItem.getName().equals(cartItem.getMenuItem().getName())) {
+                cartItems.remove(cartItem);
+            }
+        }
     }
 
     public void clearCart() {
@@ -28,8 +32,8 @@ public class Cart {
     public void printCart() {
         System.out.println("[ CART ]");
         for (int i = 0; i < cartItems.size(); i++) {
-            MenuItem menuItem = cartItems.get(i);
-            System.out.printf("%-2d. %-15s | ₩ %-6d | %s%n", i+1 , menuItem.getName(), menuItem.getPrice(), menuItem.getDetail());
+            CartItem cartItem = cartItems.get(i);
+            System.out.printf("%-2d. %-15s | ₩ %-6d | %d%n", i+1 , cartItem.getMenuItem().getName(), cartItem.getMenuItem().getPrice(), cartItem.getTotalPrice());
         }
     }
 }

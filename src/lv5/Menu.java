@@ -26,7 +26,8 @@ public class Menu {
     public void setMenuItems(List<MenuItem> menuItems) {
         this.menuItems = menuItems;
     }
-
+    
+    // 메뉴 아이템 출력 기능
     public void printMenuItems() {
         System.out.printf("[ %s MENU ]%n", category);
         for (int i = 0; i < menuItems.size(); i++) {

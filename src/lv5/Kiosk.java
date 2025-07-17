@@ -28,8 +28,10 @@ public class Kiosk {
         }
         scanner.close();
     }
-
+    
+    // 메뉴 리스트 초기화
     private void initializeMenus(){
+        // 메뉴 리스트 생성 (버거)
         List<MenuItem> burgerItems = new ArrayList<>();
         burgerItems.add(new MenuItem("ShackBurger", 6900, "토마토, 양상추, 쉑소스가 토핑된 치즈버거"));
         burgerItems.add(new MenuItem("SmokeShack", 8900, "베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거"));
@@ -37,12 +39,14 @@ public class Kiosk {
         burgerItems.add(new MenuItem("Hamburger", 5400, "비프패티를 기반으로 야채가 들어간 기본버거"));
         menus.add(new Menu("Burgers", burgerItems));
 
+        // 메뉴 리스트 생성 (음료)
         List<MenuItem> drinkItems = new ArrayList<>();
         drinkItems.add(new MenuItem("Coke", 2000, "톡 쏘는 청량감의 코카콜라"));
         drinkItems.add(new MenuItem("Sprite", 2000, "레몬라임 맛의 스프라이트"));
         drinkItems.add(new MenuItem("Lemonade", 3500, "상큼한 수제 레몬에이드"));
         menus.add(new Menu("Drinks", drinkItems));
 
+        // 메뉴 리스트 생성 (디저트)
         List<MenuItem> dessertItems = new ArrayList<>();
         dessertItems.add(new MenuItem("Ice Cream", 3500, "바닐라맛 아이스크림"));
         dessertItems.add(new MenuItem("Chocolate Cake", 4500, "부드러운 초콜릿 케이크"));
@@ -50,16 +54,8 @@ public class Kiosk {
         dessertItems.add(new MenuItem("Brownie", 4000, "진한 브라우니"));
         menus.add(new Menu("Desserts", dessertItems));
     }
-
-    private void printMenus() {
-        System.out.println("[ SHAKESHACK MENU ]");
-        for(int i = 0; i < menus.size(); i++){
-            Menu menu = menus.get(i);
-            System.out.printf("%-2d. %s%n", i+1, menu.getCategory());
-        }
-        System.out.println("0 . 종료");
-    }
-
+    
+    // 메뉴 선택 기능
     private boolean selectMenu(Scanner scanner){
         printMenus();
         int num = getUserInput(scanner);
@@ -78,6 +74,7 @@ public class Kiosk {
         return true;
     }
 
+    // 메뉴 아이템 선택 기능
     private void selectMenuItem(Menu menu, Scanner scanner){
         int num;
         while(true){
@@ -99,7 +96,18 @@ public class Kiosk {
             return;
         }
     }
+    
+    // 메뉴 출력 기능
+    private void printMenus() {
+        System.out.println("[ SHAKESHACK MENU ]");
+        for(int i = 0; i < menus.size(); i++){
+            Menu menu = menus.get(i);
+            System.out.printf("%-2d. %s%n", i+1, menu.getCategory());
+        }
+        System.out.println("0 . 종료");
+    }
 
+    // 사용자 입력 처리 기능
     private int getUserInput(Scanner scanner){
         try {
             return scanner.nextInt();

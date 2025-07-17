@@ -14,6 +14,7 @@ public class Cart {
         this.cartItems = cartItems;
     }
 
+    // 장바구니 아이템 추가 기능
     public void addToCart(MenuItem menuItem, int quantity) {
         for (CartItem cartItem : cartItems) {
             if (cartItem.getMenuItem().equals(menuItem)) {
@@ -24,6 +25,7 @@ public class Cart {
         cartItems.add(new CartItem(menuItem, quantity));
     }
 
+    // 장바구니 아이템 삭제 기능
     public void removeFromCart(MenuItem menuItem) {
         for (CartItem cartItem : cartItems) {
             if (menuItem.getName().equals(cartItem.getMenuItem().getName())) {
@@ -32,10 +34,12 @@ public class Cart {
         }
     }
 
+    // 장바구니 초기화 기능
     public void clearCart() {
         cartItems.clear();
     }
 
+    // 장바구니 총 금액 계산 기능
     public int getTotalPrice(){
         int totalPrice = 0;
         for(CartItem cartItem : cartItems){
@@ -44,6 +48,7 @@ public class Cart {
         return totalPrice;
     }
 
+    // 장바구니 출력 기능
     public void printCart() {
         System.out.println("\n아래와 같이 주문하시겠습니까?\n");
         System.out.println("[ Orders ]");

@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        // 메뉴 아이템 리스트 생성
         List<MenuItem> menuItems = new ArrayList<>();
         menuItems.add(new MenuItem("ShackBurger", 6900, "토마토, 양상추, 쉑소스가 토핑된 치즈버거"));
         menuItems.add(new MenuItem("SmokeShack", 8900, "베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거"));
@@ -16,13 +17,15 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int num;
         while (true){
+            // 메뉴 출력
             System.out.println("[ SHAKESHACK MENU ]");
             for (int i = 0; i < menuItems.size(); i++) {
                 MenuItem menuItem = menuItems.get(i);
                 System.out.printf("%-2d. %-12s | ₩ %-6d | %s%n", i+1 , menuItem.name, menuItem.price, menuItem.detail);
             }
             System.out.println("0 . 종료         | 종료");
-
+            
+            //사용자 입력 및 예외 처리
             try {
                 num = scanner.nextInt();
             } catch (InputMismatchException e){
@@ -30,15 +33,17 @@ public class Main {
                 scanner.nextLine();
                 continue;
             }
-
+            // 0 입력 시 종료
             if (num == 0){
                 System.out.println("프로그램을 종료합니다.\n");
                 break;
             }
+            // 잘못된 입력 예외 처리
             if (num < 0 || num > menuItems.size()) {
                 System.out.println("잘못된 입력입니다.\n");
                 continue;
             }
+            // 주문
             MenuItem menuItem = menuItems.get(num - 1);
             System.out.printf("%-2d. %-12s | ₩ %-6d | %s%n", num, menuItem.name, menuItem.price, menuItem.detail);
             System.out.println("주문이 완료되었습니다.\n");

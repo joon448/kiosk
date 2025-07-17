@@ -9,12 +9,15 @@ public class Main {
         int num;
         boolean flag = true;
         while (flag){
+            // 메뉴 출력
             System.out.print("[ SHAKESHACK MENU ]\n"+
                     "1. ShackBurger   | W 6.9 | 토마토, 양상추, 쉑소스가 토핑된 치즈버거\n" +
                     "2. SmokeShack    | W 8.9 | 베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거\n" +
                     "3. Cheeseburger  | W 6.9 | 포테이토 번과 비프패티, 치즈가 토핑된 치즈버거\n" +
                     "4. Hamburger     | W 5.4 | 비프패티를 기반으로 야채가 들어간 기본버거\n" +
                     "0. 종료          | 종료\n");
+
+            // 사용자 입력 및 예외처리
             try {
                 num = scanner.nextInt();
             } catch (InputMismatchException e){
@@ -22,6 +25,8 @@ public class Main {
                 scanner.nextLine();
                 continue;
             }
+
+            // 사용자 입력에 따른 주문 결과 출력
             switch (num){
                 case 1:
                     System.out.println("1. ShackBurger   | ₩ 6.9 | 토마토, 양상추, 쉑소스가 토핑된 치즈버거");

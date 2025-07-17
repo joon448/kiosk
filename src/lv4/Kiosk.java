@@ -9,6 +9,7 @@ public class Kiosk {
     public List<Menu> menus = new ArrayList<>();
 
     public Kiosk(){
+        // 메뉴 리스트 생성 (버거)
         List<MenuItem> burgerItems = new ArrayList<>();
         burgerItems.add(new MenuItem("ShackBurger", 6900, "토마토, 양상추, 쉑소스가 토핑된 치즈버거"));
         burgerItems.add(new MenuItem("SmokeShack", 8900, "베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거"));
@@ -16,12 +17,14 @@ public class Kiosk {
         burgerItems.add(new MenuItem("Hamburger", 5400, "비프패티를 기반으로 야채가 들어간 기본버거"));
         menus.add(new Menu("Burgers", burgerItems));
 
+        // 메뉴 리스트 생성 (음료)
         List<MenuItem> drinkItems = new ArrayList<>();
         drinkItems.add(new MenuItem("Coke", 2000, "톡 쏘는 청량감의 코카콜라"));
         drinkItems.add(new MenuItem("Sprite", 2000, "레몬라임 맛의 스프라이트"));
         drinkItems.add(new MenuItem("Lemonade", 3500, "상큼한 수제 레몬에이드"));
         menus.add(new Menu("Drinks", drinkItems));
 
+        // 메뉴 리스트 생성 (디저트)
         List<MenuItem> dessertItems = new ArrayList<>();
         dessertItems.add(new MenuItem("Ice Cream", 3500, "바닐라맛 아이스크림"));
         dessertItems.add(new MenuItem("Chocolate Cake", 4500, "부드러운 초콜릿 케이크"));
@@ -33,6 +36,7 @@ public class Kiosk {
         Scanner scanner = new Scanner(System.in);
         int num;
         while (true){
+            // 메뉴 출력
             System.out.println("[ SHAKESHACK MENU ]");
             for(int i = 0; i < menus.size(); i++){
                 Menu menu = menus.get(i);
@@ -40,6 +44,7 @@ public class Kiosk {
             }
             System.out.println("0 . 종료");
 
+            // 사용자 입력 및 예외 처리
             try {
                 num = scanner.nextInt();
             } catch (InputMismatchException e){
@@ -48,25 +53,31 @@ public class Kiosk {
                 continue;
             }
 
+            // 0 입력 시 종료
             if (num == 0){
                 System.out.println("프로그램을 종료합니다.\n");
                 break;
             }
+            
+            // 잘못된 입력 예외 처리
             if (num < 0 || num > menus.size()) {
                 System.out.println("잘못된 입력입니다.\n");
                 continue;
             }
-
+            
+            //서브 메뉴 아이템 선택
             Menu menu = menus.get(num - 1);
             List<MenuItem> menuItems = menu.getMenuItems();
             while(true){
+                //서브 메뉴 아이템 출력
                 System.out.printf("[ %s MENU ]%n", menu.getCategory());
                 for (int i = 0; i < menuItems.size(); i++) {
                     MenuItem menuItem = menuItems.get(i);
                     System.out.printf("%-2d. %-12s | ₩ %-6d | %s%n", i+1 , menuItem.name, menuItem.price, menuItem.detail);
                 }
                 System.out.println("0 . 뒤로 가기");
-
+                
+                // 사용자 입력 및 예외 처리
                 try {
                     num = scanner.nextInt();
                 } catch (InputMismatchException e){
@@ -74,15 +85,20 @@ public class Kiosk {
                     scanner.nextLine();
                     continue;
                 }
-
+                
+                // 0 입력 시 종료
                 if (num == 0){
                     System.out.println("초기 화면으로 돌아갑니다.\n");
                     break;
                 }
+                
+                // 잘못된 입력 예외 처리
                 if (num < 0 || num > menuItems.size()) {
                     System.out.println("잘못된 입력입니다.\n");
                     continue;
                 }
+                
+                // 주문
                 MenuItem menuItem = menuItems.get(num - 1);
                 System.out.printf("%-2d. %-12s | ₩ %-6d | %s%n", num, menuItem.name, menuItem.price, menuItem.detail);
                 System.out.println("주문이 완료되었습니다.\n");

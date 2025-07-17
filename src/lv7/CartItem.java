@@ -25,6 +25,10 @@ public class CartItem {
         this.quantity += quantity;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public int getTotalPrice(){
         return menuItem.getPrice() * quantity;
     }

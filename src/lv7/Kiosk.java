@@ -85,12 +85,11 @@ public class Kiosk {
 
         if (!cart.getCartItems().isEmpty()) {
             if (num == menuSize + 1) {
-                cart.printCart();
-
                 while(true){
-                    System.out.println("\n1. 주문         2. 메뉴판");
+                    cart.printCart();
+                    System.out.println("\n1. 주문     2. 수정     3. 뒤로 가기");
                     int choice = getUserInput(scanner);
-                    if (choice == 2){
+                    if (choice == 3){
                         System.out.println("메뉴 화면으로 돌아갑니다.\n");
                         return true;
                     }
@@ -98,6 +97,10 @@ public class Kiosk {
                         makeOrder(cart.getTotalPrice(), scanner);
                         cart.clearCart();
                         break;
+                    }
+                    if (choice == 2){
+                        askToEditCart(scanner);
+                        continue;
                     }
 
                     System.out.println("잘못된 입력입니다.\n");
@@ -163,10 +166,10 @@ public class Kiosk {
     }
 
     private void askToAddToCart(MenuItem menuItem, Scanner scanner){
-        System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
-        System.out.println("1. 확인         2. 취소");
         int num;
         while(true) {
+            System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
+            System.out.println("1. 확인         2. 취소");
             num = getUserInput(scanner);
             if (num == 2) {
                 System.out.println("메뉴 화면으로 돌아갑니다.");
@@ -186,6 +189,36 @@ public class Kiosk {
             }
 
             System.out.println("잘못된 입력입니다.\n");
+        }
+    }
+
+    private void askToEditCart(Scanner scanner){
+        int num;
+        while (!cart.getCartItems().isEmpty()) {
+            cart.printCart();
+            System.out.println("수정하실 항목 번호를 입력하세요. (0: 뒤로 가기)");
+            num = getUserInput(scanner);
+            if (num == 0){
+                System.out.println("주문 화면으로 돌아갑니다.\n");
+                return;
+            }
+            if (num < 0 || num > cart.getCartItems().size()) {
+                System.out.println("잘못된 입력입니다.\n");
+                continue;
+            }
+            CartItem cartItem = cart.getCartItems().get(num - 1);
+            System.out.printf("[선택] %-2d. %-15s | ₩ %-6d * %d%n", num , cartItem.getMenuItem().getName(), cartItem.getMenuItem().getPrice(), cartItem.getQuantity());
+            System.out.println("수량을 입력하세요. (0: 삭제)");
+            int amount = getUserInput(scanner);
+            if (amount == 0) {
+                cart.removeFromCart(cartItem);
+                continue;
+            }
+            if (amount < 0) {
+                System.out.println("잘못된 입력입니다.\n");
+                continue;
+            }
+            cartItem.setQuantity(amount);
         }
     }
 

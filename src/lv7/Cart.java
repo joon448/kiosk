@@ -2,6 +2,7 @@ package lv7;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Cart {
@@ -17,7 +18,7 @@ public class Cart {
 
     public void addToCart(MenuItem menuItem, int quantity) {
         for (CartItem cartItem : cartItems) {
-            if (cartItem.getMenuItem().equals(menuItem)) {
+            if (cartItem.getMenuItem().getName().equals(menuItem.getName())) {
                 cartItem.addQuantity(quantity);
                 return;
             }
@@ -25,12 +26,10 @@ public class Cart {
         cartItems.add(new CartItem(menuItem, quantity));
     }
 
-    public void removeFromCart(MenuItem menuItem) {
-        for (CartItem cartItem : cartItems) {
-            if (menuItem.getName().equals(cartItem.getMenuItem().getName())) {
-                cartItems.remove(cartItem);
-            }
-        }
+    public void removeFromCart(CartItem cartItem) {
+        cartItems = cartItems.stream()
+                .filter(c -> !cartItem.getMenuItem().getName().equals(c.getMenuItem().getName()))
+                .collect(Collectors.toList());
     }
 
     public void clearCart() {
@@ -46,13 +45,11 @@ public class Cart {
     }
 
     public void printCart() {
-        System.out.println("\n아래와 같이 주문하시겠습니까?\n");
         System.out.println("[ Orders ]");
         IntStream.range(0, cartItems.size())
                 .forEach(i-> {
                     CartItem cartItem = cartItems.get(i);
-                    System.out.printf("%-2d. %-15s | ₩ %-6d | %s%n", i+1 , cartItem.getMenuItem().getName(), cartItem.getMenuItem().getPrice(), cartItem.getTotalPrice());
-                });
+                    System.out.printf("%-2d. %-15s | ₩ %-6d * %d%n", i+1 , cartItem.getMenuItem().getName(), cartItem.getMenuItem().getPrice(), cartItem.getQuantity());});
         System.out.println("[ Total ]");
         System.out.printf("₩ %d%n", getTotalPrice());
     }

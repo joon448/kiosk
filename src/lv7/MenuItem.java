@@ -34,4 +34,5 @@ public class MenuItem {
     public void setDetail(String detail) {
         this.detail = detail;
     }
+
 }

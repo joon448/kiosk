@@ -29,7 +29,7 @@ Java 기초부터 단계적으로 발전시키는 키오스크 어플리케이�
 
 &nbsp;
 
-## 디렉토리 구조
+## 디렉토토리 구조
 
 ```
 kiosk/
@@ -54,6 +54,13 @@ Kiosk	| 전체 흐름을 제어하는 핵심 클래스 (start())
 Cart	| 장바구니의 아이템들을 저장하고 총합을 계산
 CartItem	| 메뉴 항목과 수량을 함께 관리하는 클래스
 CustomerType	| 할인 정책을 위한 Enum 클래스 (Lv7)
+
+&nbsp;
+
+
+## 전체 클래스 설계
+
+<img width="772" height="1021" alt="XLLDZzCm4Br7od-mUg5yT0NN2bLRTGkgw1PeiqWStMHKMOtjOZihbHKII7lQEn8dn67_0Vkhbl8Vy4VYn6c0IslDc-TvC_Fgdag5XIfe7aToIzWE2qnHccCfnqe9iYuKp5BELkGZeATn54SFq3cmOgQ0ejzVxdvz_tQukOqZowYHgpX2Q81M-WQsGGnJS0725De9aaA0Pw0moKteCTg0MkZq" src="https://github.com/user-attachments/assets/8b2e2b2f-dff7-4081-b531-d77a937f4d09" />
 
 &nbsp;
 

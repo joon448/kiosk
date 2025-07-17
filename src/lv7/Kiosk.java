@@ -179,8 +179,8 @@ public class Kiosk {
             if (num == 1) {
                 System.out.println("수량을 입력하세요.");
                 int quantity = getUserInput(scanner);
-                if (quantity < 0) {
-                    System.out.println("잘못된 입력입니다.");
+                if (quantity <= 0) {
+                    System.out.println("수량은 1개 이상이어야 합니다.\n");
                     continue;
                 }
                 cart.addToCart(menuItem, quantity);
@@ -196,7 +196,7 @@ public class Kiosk {
         int num;
         while (!cart.getCartItems().isEmpty()) {
             cart.printCart();
-            System.out.println("수정하실 항목 번호를 입력하세요. (0: 뒤로 가기)");
+            System.out.println("\n수정하실 항목 번호를 입력하세요. (0: 뒤로 가기)");
             num = getUserInput(scanner);
             if (num == 0){
                 System.out.println("주문 화면으로 돌아갑니다.\n");
@@ -207,11 +207,11 @@ public class Kiosk {
                 continue;
             }
             CartItem cartItem = cart.getCartItems().get(num - 1);
-            System.out.printf("[선택] %-2d. %-15s | ₩ %-6d * %d%n", num , cartItem.getMenuItem().getName(), cartItem.getMenuItem().getPrice(), cartItem.getQuantity());
-            System.out.println("수량을 입력하세요. (0: 삭제)");
+            System.out.printf("\n[선택] %-2d. %-15s | ₩ %-6d * %d%n", num , cartItem.getMenuItem().getName(), cartItem.getMenuItem().getPrice(), cartItem.getQuantity());
+            System.out.println("\n수량을 입력하세요. (0: 삭제)");
             int amount = getUserInput(scanner);
             if (amount == 0) {
-                cart.removeFromCart(cartItem);
+                cart.removeFromCart(cartItem.getMenuItem());
                 continue;
             }
             if (amount < 0) {

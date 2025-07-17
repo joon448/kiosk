@@ -26,9 +26,9 @@ public class Cart {
         cartItems.add(new CartItem(menuItem, quantity));
     }
 
-    public void removeFromCart(CartItem cartItem) {
+    public void removeFromCart(MenuItem menuItem) {
         cartItems = cartItems.stream()
-                .filter(c -> !cartItem.getMenuItem().getName().equals(c.getMenuItem().getName()))
+                .filter(c -> !menuItem.getName().equals(c.getMenuItem().getName()))
                 .collect(Collectors.toList());
     }
 
@@ -45,7 +45,7 @@ public class Cart {
     }
 
     public void printCart() {
-        System.out.println("[ Orders ]");
+        System.out.println("\n[ Orders ]");
         IntStream.range(0, cartItems.size())
                 .forEach(i-> {
                     CartItem cartItem = cartItems.get(i);

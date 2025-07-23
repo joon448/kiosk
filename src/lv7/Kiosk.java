@@ -76,7 +76,7 @@ public class Kiosk {
         if (!cart.getCartItems().isEmpty()) {
             // 장바구니 조회 입력 시
             if (num == menuSize + 1) {
-                while(true){
+                while(!cart.getCartItems().isEmpty()){
                     cart.printCart();
                     System.out.println("\n1. 주문     2. 수정     3. 뒤로 가기");
                     int choice = getUserInput(scanner);
@@ -211,7 +211,7 @@ public class Kiosk {
         while (true){
             System.out.println("할인 정보를 입력해주세요.");
             for(CustomerType c: CustomerType.values()){
-                System.out.printf("%d . %-15s : %d%%%n",c.ordinal()+1, c.getName(), (int) (c.getDiscountRate()*100) );
+                System.out.printf("%d . %-10s : %d%%%n",c.ordinal()+1, c.getName(), (int) (c.getDiscountRate()*100) );
             }
             int num = getUserInput(scanner);
             if (num <= 0 || num > CustomerType.values().length) {
@@ -228,6 +228,7 @@ public class Kiosk {
     
     // 메뉴 출력 기능
     private void printMenus() {
+        System.out.println("================================");
         System.out.println("[ SHAKESHACK MENU ]");
         for(int i = 0; i < menus.size(); i++){
             Menu menu = menus.get(i);

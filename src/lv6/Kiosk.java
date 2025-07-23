@@ -136,10 +136,10 @@ public class Kiosk {
     
     //장바구니 추가 확인 기능
     private void askToAddToCart(MenuItem menuItem, Scanner scanner){
-        System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
-        System.out.println("1. 확인         2. 취소");
         int num;
         while(true) {
+            System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
+            System.out.println("1. 확인         2. 취소");
             num = getUserInput(scanner);
             if (num == 2) {
                 return;

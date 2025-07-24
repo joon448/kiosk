@@ -14,14 +14,6 @@ public class Kiosk {
         cart = new Cart();
     }
 
-    public List<Menu> getMenus(){
-        return menus;
-    }
-
-    public void setMenus(List<Menu> menus){
-        this.menus = menus;
-    }
-
     public void start(){
         Scanner scanner = new Scanner(System.in);
         boolean flag = true;

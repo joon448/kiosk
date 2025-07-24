@@ -1,5 +1,6 @@
 package lv5;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Menu {
@@ -20,7 +21,7 @@ public class Menu {
     }
 
     public List<MenuItem> getMenuItems() {
-        return menuItems;
+        return Collections.unmodifiableList(menuItems);
     }
 
     public void setMenuItems(List<MenuItem> menuItems) {

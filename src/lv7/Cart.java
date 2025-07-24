@@ -1,6 +1,7 @@
 package lv7;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -9,7 +10,7 @@ public class Cart {
     private List<CartItem> cartItems = new ArrayList<CartItem>();
 
     public List<CartItem> getCartItems() {
-        return cartItems;
+        return Collections.unmodifiableList(cartItems);
     }
 
     public void setCartItems(List<CartItem> cartItems) {

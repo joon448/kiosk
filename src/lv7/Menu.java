@@ -1,5 +1,6 @@
 package lv7;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -21,7 +22,7 @@ public class Menu {
     }
 
     public List<MenuItem> getMenuItems() {
-        return menuItems;
+        return Collections.unmodifiableList(menuItems);
     }
 
     public void setMenuItems(List<MenuItem> menuItems) {
